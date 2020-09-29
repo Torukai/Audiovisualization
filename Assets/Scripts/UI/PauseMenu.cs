@@ -8,6 +8,9 @@ public class PauseMenu : MonoBehaviour
 
     public static bool IsPaused = false;
     public GameObject pauseMenuUI;
+    public GameObject presetsMenu;
+    public GameObject optionsMenu;
+    public GameObject songsMenu;
     public GameObject kochLines;
     public GameObject kochTrails;
 
@@ -27,9 +30,12 @@ public class PauseMenu : MonoBehaviour
 		}
     }
 
-    void Resume()
+    public void Resume()
 	{
         pauseMenuUI.SetActive(false);
+        presetsMenu.SetActive(false);
+        songsMenu.SetActive(false);
+        optionsMenu.SetActive(false);
         kochLines.SetActive(true);
         kochTrails.SetActive(true);
         Time.timeScale = 1f;
@@ -43,5 +49,36 @@ public class PauseMenu : MonoBehaviour
         kochTrails.SetActive(false);
         Time.timeScale = 0.04f;
         IsPaused = true;
+	}
+
+    public void Songs()
+	{
+        pauseMenuUI.SetActive(false);
+        songsMenu.SetActive(true);
+    }
+
+    public void Presets()
+    {
+        pauseMenuUI.SetActive(false);
+        presetsMenu.SetActive(true);
+    }
+
+    public void Options()
+    {
+        pauseMenuUI.SetActive(false);
+        optionsMenu.SetActive(true);
+    }
+
+    public void Back()
+    {
+        presetsMenu.SetActive(false);
+        songsMenu.SetActive(false);
+        optionsMenu.SetActive(false);
+        pauseMenuUI.SetActive(true);
+    }
+
+    public void Quit()
+	{
+        Application.Quit();
 	}
 }
