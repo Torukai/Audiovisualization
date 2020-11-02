@@ -54,9 +54,9 @@ public class KochGenerator : MonoBehaviour
 	[SerializeField]
 	protected bool _useBezierCurves;
 	[SerializeField]
-	[Range (8,24)]
+	[Range(8, 24)]
 	protected int _bezierVertexCount;
-	
+
 	protected int _generationCount;
 
 	protected int _initiatorPointAmount;
@@ -75,11 +75,11 @@ public class KochGenerator : MonoBehaviour
 	protected Vector3[] BezierCurve(Vector3[] points, int vertexCount)
 	{
 		var pointList = new List<Vector3>();
-		for (int i = 0; i<points.Length; i +=2)
+		for (int i = 0; i < points.Length; i += 2)
 		{
-			if (i+2 <= points.Length - 1)
+			if (i + 2 <= points.Length - 1)
 			{
-				for (float ratio =0f; ratio <=1f; ratio += 1.0f / vertexCount)
+				for (float ratio = 0f; ratio <= 1f; ratio += 1.0f / vertexCount)
 				{
 					var tangentLineVertex1 = Vector3.Lerp(points[i], points[i + 1], ratio);
 					var tangentLineVertex2 = Vector3.Lerp(points[i + 1], points[i + 2], ratio);
@@ -109,7 +109,7 @@ public class KochGenerator : MonoBehaviour
 		_position[_initiatorPointAmount] = _position[0];
 		_targetPosition = _position;
 
-		for (int i = 0; i<_startGen.Length; i++)
+		for (int i = 0; i < _startGen.Length; i++)
 		{
 			KochGenerate(_targetPosition, _startGen[i].outwards, _startGen[i].scale);
 		}
@@ -119,11 +119,11 @@ public class KochGenerator : MonoBehaviour
 	{
 		//creating line segments
 		_lineSegment.Clear();
-		for (int i =0; i< positions.Length -1; i++)
+		for (int i = 0; i < positions.Length - 1; i++)
 		{
 			LineSegment line = new LineSegment();
 			line.StartPosition = positions[i];
-			if(i == positions.Length - 1)
+			if (i == positions.Length - 1)
 			{
 				line.EndPosition = positions[0];
 			}
@@ -139,12 +139,12 @@ public class KochGenerator : MonoBehaviour
 		List<Vector3> newPos = new List<Vector3>();
 		List<Vector3> targetPos = new List<Vector3>();
 
-		for (int i =0; i <_lineSegment.Count; i++)
+		for (int i = 0; i < _lineSegment.Count; i++)
 		{
 			newPos.Add(_lineSegment[i].StartPosition);
 			targetPos.Add(_lineSegment[i].StartPosition);
 
-			for (int j =1; j<_keys.Length-1; j++)
+			for (int j = 1; j < _keys.Length - 1; j++)
 			{
 				float moveAmount = _lineSegment[i].Length * _keys[j].time;
 				float heightAmount = (_lineSegment[i].Length * _keys[j].value) * generatorMultiplier;
@@ -179,16 +179,16 @@ public class KochGenerator : MonoBehaviour
 
 
 		_rotateVector = Quaternion.AngleAxis(_initialRotation, _rotateAxis) * _rotateVector;
-		for (int i = 0; i< _initiatorPointAmount; i++)
+		for (int i = 0; i < _initiatorPointAmount; i++)
 		{
 			_initiatorPoint[i] = _rotateVector * _initiatorSize;
-			_rotateVector = Quaternion.AngleAxis(360/_initiatorPointAmount, _rotateAxis) * _rotateVector;
+			_rotateVector = Quaternion.AngleAxis(360 / _initiatorPointAmount, _rotateAxis) * _rotateVector;
 
 		}
-		for (int i = 0; i< _initiatorPointAmount; i++)
+		for (int i = 0; i < _initiatorPointAmount; i++)
 		{
 			Gizmos.color = Color.white;
-			Matrix4x4 rotationMatrix = Matrix4x4.TRS (transform.position, transform.rotation, transform.lossyScale);
+			Matrix4x4 rotationMatrix = Matrix4x4.TRS(transform.position, transform.rotation, transform.lossyScale);
 			Gizmos.matrix = rotationMatrix;
 
 			if (i < _initiatorPointAmount - 1)
@@ -255,15 +255,4 @@ public class KochGenerator : MonoBehaviour
 				break;
 		}
 	}
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

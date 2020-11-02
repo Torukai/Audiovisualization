@@ -39,7 +39,7 @@ public class AudioPeer : MonoBehaviour
 	{
 		float _CurrentAmplitude = 0;
 		float _CurrentAmplitudeBuffer = 0;
-		for (int i = 0; i <8; i++)
+		for (int i = 0; i < 8; i++)
 		{
 			_CurrentAmplitude += _audioBand[i];
 			_CurrentAmplitudeBuffer += _audioBandBuffer[i];
@@ -54,13 +54,13 @@ public class AudioPeer : MonoBehaviour
 
 	void CreateAudioBands()
 	{
-		for (int i = 0; i<8; i++)
+		for (int i = 0; i < 8; i++)
 		{
 			if (_freqBand[i] > _freqBandHighest[i])
 			{
 				_freqBandHighest[i] = _freqBand[i];
 			}
-			_audioBand[i] = (_freqBand[i]/_freqBandHighest[i]);
+			_audioBand[i] = (_freqBand[i] / _freqBandHighest[i]);
 			_audioBandBuffer[i] = (_bandBuffer[i] / _freqBandHighest[i]);
 		}
 	}
@@ -98,15 +98,15 @@ public class AudioPeer : MonoBehaviour
 		{
 			float average = 0;
 			int sampleCount = (int)Mathf.Pow(2, i) * 2;
-			
+
 			if (i == 7)
 			{
 				sampleCount += 2;
 			}
 
-			for (int j = 0; j <sampleCount; j++)
+			for (int j = 0; j < sampleCount; j++)
 			{
-				average += _samples[count] * (count +1);
+				average += _samples[count] * (count + 1);
 				count++;
 			}
 			average /= count;

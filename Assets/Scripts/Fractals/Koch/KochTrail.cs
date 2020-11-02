@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Dynamic;
 using UnityEngine;
 
-public class KochTrail : KochGenerator 
+public class KochTrail : KochGenerator
 {
     public class TrailObject
     {
@@ -93,30 +93,30 @@ public class KochTrail : KochGenerator
 
 
     void Movement()
-	{
+    {
         _lerpPosSpeed = Mathf.Lerp(_speedMinMax.x, _speedMinMax.y, _audioPeer._Amplitude);
-        for (int i = 0; i< _trail.Count; i++)
-		{
+        for (int i = 0; i < _trail.Count; i++)
+        {
             _distanceSnap = Vector3.Distance(_trail[i].GO.transform.localPosition, _trail[i].TargetPosition);
 
             if (_distanceSnap < 0.05f)
-			{
+            {
                 _trail[i].GO.transform.localPosition = _trail[i].TargetPosition;
                 if (_useBezierCurves && _generationCount > 0)
                 {
                     if (_trail[i].CurrentTargetNum < _bezierPosition.Length - 1)
-					{
+                    {
                         _trail[i].CurrentTargetNum += 1;
-					}
-					else
-					{
+                    }
+                    else
+                    {
                         _trail[i].CurrentTargetNum = 1;
                     }
                     _trail[i].TargetPosition = _bezierPosition[_trail[i].CurrentTargetNum];
 
                 }
                 else
-				{
+                {
                     if (_trail[i].CurrentTargetNum < _position.Length - 1)
                     {
                         _trail[i].CurrentTargetNum += 1;
@@ -127,26 +127,26 @@ public class KochTrail : KochGenerator
                     }
                     _trail[i].TargetPosition = _targetPosition[_trail[i].CurrentTargetNum];
                 }
-			}
+            }
             _trail[i].GO.transform.localPosition = Vector3.MoveTowards(_trail[i].GO.transform.localPosition, _trail[i].TargetPosition, Time.deltaTime * _lerpPosSpeed);
         }
     }
 
     void AudioBehaviour()
-	{
+    {
         for (int i = 0; i < _initiatorPointAmount; i++)
-		{
-			Color colorLerp = Color.Lerp(_startColor, _trail[i].EmissionColor * _colorMultiplier, _audioPeer._audioBand[i]);
-			_trail[i].Trail.material.SetColor("_EmissionColor", colorLerp);
-			colorLerp = Color.Lerp(_startColor, _endColor, _audioPeer._audioBand[i]);
-			_trail[i].Trail.material.SetColor("_Color", colorLerp);
+        {
+            Color colorLerp = Color.Lerp(_startColor, _trail[i].EmissionColor * _colorMultiplier, _audioPeer._audioBand[i]);
+            _trail[i].Trail.material.SetColor("_EmissionColor", colorLerp);
+            colorLerp = Color.Lerp(_startColor, _endColor, _audioPeer._audioBand[i]);
+            _trail[i].Trail.material.SetColor("_Color", colorLerp);
 
-			float widthLerp = Mathf.Lerp(_widthMinMax.x, _widthMinMax.y, _audioPeer._audioBand[i]);
-			_trail[i].Trail.widthMultiplier = widthLerp;
+            float widthLerp = Mathf.Lerp(_widthMinMax.x, _widthMinMax.y, _audioPeer._audioBand[i]);
+            _trail[i].Trail.widthMultiplier = widthLerp;
 
-			float timeLerp = Mathf.Lerp(_trailTimeMinMax.x, _trailTimeMinMax.y, _audioPeer._audioBand[i]);
-			_trail[i].Trail.time = timeLerp;
-		}
+            float timeLerp = Mathf.Lerp(_trailTimeMinMax.x, _trailTimeMinMax.y, _audioPeer._audioBand[i]);
+            _trail[i].Trail.time = timeLerp;
+        }
     }
 
     // Update is called once per frame

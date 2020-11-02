@@ -9,11 +9,11 @@ public class SongSwitcher : MonoBehaviour
     public PauseMenu _pauseMenu;
     public AudioSource _audioSource;
     public void Song1()
-	{
+    {
         _audioSource.GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("Torcht - End To A Violent Heart");
         _audioSource.Play();
         _pauseMenu.Resume();
-	}
+    }
 
     public void Song2()
     {
